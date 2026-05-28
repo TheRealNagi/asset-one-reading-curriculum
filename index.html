@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASSET ONE — Reading Curriculum</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E4C87A;
+    --gold-dim: #7A6330;
+    --bg: #0D0E0F;
+    --bg2: #131416;
+    --bg3: #1A1C1F;
+    --bg4: #222428;
+    --border: #2A2D32;
+    --text: #E8E6E1;
+    --text-dim: #8A8680;
+    --text-muted: #555250;
+    --red: #C0392B;
+    --green: #27AE60;
+    --blue: #2980B9;
+    --purple: #8E44AD;
+    --teal: #16A085;
+    --orange: #D35400;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    padding: 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .header h1 span { color: var(--gold); }
+  .header-sub {
+    color: var(--text-dim);
+    font-size: 15px;
+    font-weight: 300;
+    margin-top: 10px;
+    max-width: 600px;
+  }
+  .header-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+  .stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 20px;
+    padding: 14px 60px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .legend-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-right: 8px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN ── */
+  .main {
+    padding: 40px 60px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── SECTION INTRO ── */
+  .section-notice {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 14px 18px;
+    margin-bottom: 40px;
+    font-size: 13px;
+    color: var(--text-dim);
+    border-radius: 0 4px 4px 0;
+    line-height: 1.7;
+  }
+  .section-notice strong { color: var(--gold); }
+
+  /* ── LEVEL BLOCK ── */
+  .level-block {
+    margin-bottom: 52px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .level-header {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--border);
+  }
+  .level-badge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 28px;
+    min-width: 120px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #fff;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .level-badge .lvl-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .level-badge .lvl-lbl {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    opacity: 0.8;
+  }
+
+  .level-meta {
+    padding: 18px 24px;
+    flex: 1;
+    background: var(--bg3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+  .level-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .level-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+  .level-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .tag {
+    font-size: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    border: 1px solid;
+  }
+  .tag.time { color: #aaa; border-color: #444; background: rgba(255,255,255,0.04); }
+  .tag.hrs  { color: var(--gold-dim); border-color: var(--gold-dim); background: rgba(201,168,76,0.05); }
+  .tag.books{ color: var(--blue); border-color: #2980B9; background: rgba(41,128,185,0.08); }
+
+  /* ── BOOK CARDS ── */
+  .books-grid {
+    background: var(--bg2);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .month-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .book-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 0 16px;
+    align-items: start;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .book-card:hover {
+    border-color: #3A3D44;
+  }
+
+  .book-num {
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding-top: 2px;
+  }
+  .month-circle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+    border: 1px solid;
+  }
+  .cat-dot-sm {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .book-main {}
+  .book-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+  .book-author {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+  .book-why {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .book-why strong { color: var(--text); font-weight: 500; }
+
+  .book-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .intensity-bar {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+  }
+  .intensity-pip {
+    width: 8px; height: 8px;
+    border-radius: 1px;
+  }
+  .intensity-lbl {
+    font-size: 9px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+    text-align: right;
+  }
+  .category-tag {
+    font-size: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 1px solid;
+    text-align: right;
+    max-width: 130px;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pages-tag {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Level 5 rotation grid */
+  .rotation-grid {
+    background: var(--bg2);
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .rotation-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+  .rotation-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .rotation-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+  .rotation-author {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .rotation-why {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* Color palette for levels */
+  .l0  { background: #2D1A00; } .l0c { color: #FF8C00; border-color: #FF8C00; background: rgba(255,140,0,0.08); }
+  .l1  { background: #1A2D1A; } .l1c { color: #27AE60; border-color: #27AE60; background: rgba(39,174,96,0.08); }
+  .l2  { background: #162840; } .l2c { color: #2980B9; border-color: #2980B9; background: rgba(41,128,185,0.08); }
+  .l3  { background: #2A1A40; } .l3c { color: #8E44AD; border-color: #8E44AD; background: rgba(142,68,173,0.08); }
+  .l4  { background: #2D1A1A; } .l4c { color: #C0392B; border-color: #C0392B; background: rgba(192,57,43,0.08); }
+  .l5  { background: #1F1A0D; } .l5c { color: var(--gold); border-color: var(--gold-dim); background: rgba(201,168,76,0.08); }
+
+  /* Intensity colors */
+  .pip-on-0  { background: #FF8C00; }
+  .pip-on-1  { background: #27AE60; }
+  .pip-on-2  { background: #2980B9; }
+  .pip-on-3  { background: #8E44AD; }
+  .pip-on-4  { background: #C0392B; }
+  .pip-on-5  { background: var(--gold); }
+  .pip-off   { background: var(--border); }
+
+  .circle-0  { background: rgba(255,140,0,0.15); color: #FF8C00; border-color: #FF8C00; }
+  .circle-1  { background: rgba(39,174,96,0.15); color: #27AE60; border-color: #27AE60; }
+  .circle-2  { background: rgba(41,128,185,0.15); color: #2980B9; border-color: #2980B9; }
+  .circle-3  { background: rgba(142,68,173,0.15); color: #8E44AD; border-color: #8E44AD; }
+  .circle-4  { background: rgba(192,57,43,0.15); color: #C0392B; border-color: #C0392B; }
+  .circle-5  { background: rgba(201,168,76,0.15); color: var(--gold); border-color: var(--gold-dim); }
+
+  /* Category colors */
+  .cat-mh  { color: #E67E22; border-color: #7A4010; background: rgba(230,126,34,0.06); }
+  .cat-pf  { color: #27AE60; border-color: #145A32; background: rgba(39,174,96,0.06); }
+  .cat-tp  { color: #3498DB; border-color: #1A5276; background: rgba(52,152,219,0.06); }
+  .cat-ec  { color: #9B59B6; border-color: #512E5F; background: rgba(155,89,182,0.06); }
+  .cat-vi  { color: #1ABC9C; border-color: #0E6655; background: rgba(26,188,156,0.06); }
+  .cat-ta  { color: #E91E63; border-color: #880E4F; background: rgba(233,30,99,0.06); }
+  .cat-ts  { color: #FF9800; border-color: #E65100; background: rgba(255,152,0,0.06); }
+  .cat-aq  { color: #00BCD4; border-color: #006064; background: rgba(0,188,212,0.06); }
+  .cat-ot  { color: #CDDC39; border-color: #827717; background: rgba(205,220,57,0.06); }
+  .cat-cf  { color: #FF5722; border-color: #BF360C; background: rgba(255,87,34,0.06); }
+
+  .dot-mh  { background: #E67E22; }
+  .dot-pf  { background: #27AE60; }
+  .dot-tp  { background: #3498DB; }
+  .dot-ec  { background: #9B59B6; }
+  .dot-vi  { background: #1ABC9C; }
+  .dot-ta  { background: #E91E63; }
+  .dot-ts  { background: #FF9800; }
+  .dot-aq  { background: #00BCD4; }
+  .dot-ot  { background: #CDDC39; }
+  .dot-cf  { background: #FF5722; }
+
+  /* INSTRUCTOR NOTE */
+  .instructor-note {
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--text-muted);
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 12px;
+    border-radius: 0 3px 3px 0;
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .instructor-note strong { color: var(--text-dim); font-style: normal; }
+
+  /* Supplementary books note */
+  .supp-note {
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold-dim);
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 10px;
+    border-radius: 0 3px 3px 0;
+    line-height: 1.7;
+  }
+  .supp-note strong { color: var(--gold); font-style: normal; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; }
+  .supp-note ul { margin: 6px 0 0 16px; }
+  .supp-note li { margin-bottom: 4px; color: var(--text-dim); }
+  .supp-note li em { color: var(--text); font-style: normal; font-weight: 500; }
+  .supp-note .tag-depth  { font-size: 9px; font-family: 'IBM Plex Mono', monospace; padding: 1px 5px; border-radius: 2px; background: rgba(41,128,185,0.12); border: 1px solid rgba(41,128,185,0.3); color: #5BA3D0; margin-left: 4px; }
+  .supp-note .tag-exec   { font-size: 9px; font-family: 'IBM Plex Mono', monospace; padding: 1px 5px; border-radius: 2px; background: rgba(39,174,96,0.12); border: 1px solid rgba(39,174,96,0.3); color: #5DC98A; margin-left: 4px; }
+  .supp-note .tag-broad  { font-size: 9px; font-family: 'IBM Plex Mono', monospace; padding: 1px 5px; border-radius: 2px; background: rgba(142,68,173,0.12); border: 1px solid rgba(142,68,173,0.3); color: #B07FD4; margin-left: 4px; }
+
+  /* Warning note */
+  .warn-note {
+    background: rgba(192,57,43,0.06);
+    border: 1px solid rgba(192,57,43,0.25);
+    border-radius: 3px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #E88; margin-top: 14px;
+    line-height: 1.6;
+  }
+  .warn-note strong { color: #C0392B; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 60px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    display: flex;
+    justify-content: space-between;
+    background: var(--bg2);
+  }
+
+  @media (max-width: 700px) {
+    .header, .main, footer, .legend { padding-left: 20px; padding-right: 20px; }
+    .book-card { grid-template-columns: 48px 1fr; }
+    .book-meta { display: none; }
+    .level-header { flex-direction: column; }
+    .level-badge { flex-direction: row; gap: 12px; padding: 14px 20px; }
+    .rotation-grid { grid-template-columns: 1fr; }
+  }
+
+/* ── INTERACTIVE CONTROLS ── */
+.controls-panel {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(13,14,15,0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 60px;
+}
+.controls-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+.controls-top {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.2fr) repeat(3, minmax(140px, 0.6fr));
+  gap: 10px;
+  align-items: center;
+}
+.controls-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.control-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+.search-box,
+.control-select {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;
+  outline: none;
+}
+.search-box:focus,
+.control-select:focus {
+  border-color: var(--gold-dim);
+  box-shadow: 0 0 0 2px rgba(201,168,76,0.10);
+}
+.filter-chip,
+.utility-btn,
+.read-toggle,
+.level-toggle-btn {
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--text-dim);
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: border-color 0.18s, color 0.18s, background 0.18s, transform 0.18s;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.filter-chip:hover,
+.utility-btn:hover,
+.level-toggle-btn:hover {
+  border-color: var(--gold-dim);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+.filter-chip.active {
+  background: rgba(201,168,76,0.12);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+.utility-btn {
+  border-radius: 4px;
+}
+.utility-btn.primary {
+  color: var(--gold-light);
+  border-color: var(--gold-dim);
+  background: rgba(201,168,76,0.08);
+}
+.controls-summary {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 12px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 12px;
+}
+.controls-summary strong {
+  color: var(--gold);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+}
+.toggle-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text-dim);
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.toggle-line input {
+  accent-color: var(--gold);
+}
+.legend-item {
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 4px 8px;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+.legend-item:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: var(--border);
+  color: var(--text);
+}
+.legend-item.active {
+  background: rgba(201,168,76,0.10);
+  border-color: var(--gold-dim);
+  color: var(--gold-light);
+}
+.book-actions,
+.rotation-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.read-toggle {
+  border-radius: 4px;
+  padding: 5px 9px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+}
+.read-toggle.is-read {
+  color: var(--green);
+  border-color: rgba(39,174,96,0.45);
+  background: rgba(39,174,96,0.08);
+}
+.book-card.is-read,
+.rotation-card.is-read {
+  opacity: 0.64;
+}
+.book-card.is-read .book-title,
+.rotation-card.is-read .rotation-title {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(201,168,76,0.6);
+}
+.supp-note.is-hidden {
+  display: none;
+}
+.level-header {
+  cursor: pointer;
+}
+.level-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.level-toggle-btn {
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.level-block.collapsed > *:not(.level-header) {
+  display: none !important;
+}
+body.compact-view .book-why,
+body.compact-view .instructor-note,
+body.compact-view .warn-note,
+body.compact-view .supp-note,
+body.compact-view .rotation-why {
+  display: none !important;
+}
+body.compact-view .book-card {
+  padding: 13px 16px;
+}
+body.compact-view .book-title {
+  font-size: 15px;
+}
+.empty-state {
+  display: none;
+  border: 1px dashed var(--border);
+  background: var(--bg3);
+  color: var(--text-dim);
+  border-radius: 6px;
+  padding: 24px;
+  text-align: center;
+  margin-top: 24px;
+  font-size: 13px;
+}
+.empty-state.show {
+  display: block;
+}
+.match-highlight {
+  background: rgba(201,168,76,0.18);
+  color: var(--gold-light);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+.copy-toast {
+  color: var(--green);
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.copy-toast.show {
+  opacity: 1;
+}
+@media (max-width: 900px) {
+  .controls-top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .controls-panel { padding-left: 20px; padding-right: 20px; }
+  .controls-top { grid-template-columns: 1fr; }
+  .controls-summary { gap: 8px; flex-direction: column; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-label">Asset One Books — Instructor Curriculum</div>
+  <h1>Reading <span>Curriculum</span><br>by Level</h1>
+  <p class="header-sub">One book per month, 15 hours of study, across 6 progressive levels — from market introduction to lifetime professional practice.</p>
+  <div class="header-stats">
+    <div class="stat"><span class="stat-val">802</span><span class="stat-lbl">Books in Library</span></div>
+    <div class="stat"><span class="stat-val">35</span><span class="stat-lbl">Curated Selections</span></div>
+    <div class="stat"><span class="stat-val">6</span><span class="stat-lbl">Levels</span></div>
+    <div class="stat"><span class="stat-val">~3.5 yrs</span><span class="stat-lbl">Total Curriculum</span></div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <span class="legend-title">Categories</span>
+  <span class="legend-item"><span class="dot dot-mh"></span>Market History</span>
+  <span class="legend-item"><span class="dot dot-pf"></span>Personal Finance</span>
+  <span class="legend-item"><span class="dot dot-tp"></span>Psychology &amp; Risk</span>
+  <span class="legend-item"><span class="dot dot-ec"></span>Economics &amp; Theory</span>
+  <span class="legend-item"><span class="dot dot-vi"></span>Value Investing</span>
+  <span class="legend-item"><span class="dot dot-ta"></span>Technical Analysis</span>
+  <span class="legend-item"><span class="dot dot-ts"></span>Trading Strategies</span>
+  <span class="legend-item"><span class="dot dot-aq"></span>Algo &amp; Quant</span>
+  <span class="legend-item"><span class="dot dot-ot"></span>Options</span>
+  <span class="legend-item"><span class="dot dot-cf"></span>Commodities &amp; Futures</span>
+</div>
+
+
+<!-- INTERACTIVE CONTROLS -->
+<div class="controls-panel" id="controlsPanel">
+  <div class="controls-inner">
+    <div class="controls-top">
+      <input id="searchInput" class="search-box" type="search" placeholder="Search title, author, category, notes, or supplementary books…">
+      <select id="levelFilter" class="control-select" aria-label="Filter by level">
+        <option value="all">All levels</option>
+        <option value="0">Level 0 — Intro</option>
+        <option value="1">Level 1 — Primitives</option>
+        <option value="2">Level 2 — Basics</option>
+        <option value="3">Level 3 — Beginner</option>
+        <option value="4">Level 4 — Intermediate</option>
+        <option value="5">Level 5 — Professional</option>
+      </select>
+      <select id="intensityFilter" class="control-select" aria-label="Filter by intensity">
+        <option value="all">All cognitive loads</option>
+        <option value="light">Light — 1 to 2 pips</option>
+        <option value="medium">Medium — 3 pips</option>
+        <option value="heavy">Heavy — 4 to 5 pips</option>
+      </select>
+      <select id="supplementFilter" class="control-select" aria-label="Supplementary notes display">
+        <option value="hide">Hide supplementary notes</option>
+        <option value="show">Show supplementary notes</option>
+      </select>
+    </div>
+
+    <div class="controls-row" id="categoryFilters" aria-label="Category filters">
+      <span class="control-label">Categories</span>
+      <button class="filter-chip active" data-filter-category="all">All</button>
+      <button class="filter-chip" data-filter-category="mh">Market History</button>
+      <button class="filter-chip" data-filter-category="pf">Personal Finance</button>
+      <button class="filter-chip" data-filter-category="tp">Psychology and Risk</button>
+      <button class="filter-chip" data-filter-category="ec">Economics and Theory</button>
+      <button class="filter-chip" data-filter-category="vi">Value Investing</button>
+      <button class="filter-chip" data-filter-category="ta">Technical Analysis</button>
+      <button class="filter-chip" data-filter-category="ts">Trading Strategies</button>
+      <button class="filter-chip" data-filter-category="aq">Algo and Quant</button>
+      <button class="filter-chip" data-filter-category="ot">Options</button>
+      <button class="filter-chip" data-filter-category="cf">Commodities and Futures</button>
+    </div>
+
+    <div class="controls-row">
+      <span class="control-label">Tools</span>
+      <label class="toggle-line"><input id="unreadOnly" type="checkbox"> Show unread only</label>
+      <label class="toggle-line"><input id="compactView" type="checkbox"> Compact view</label>
+      <button class="utility-btn" id="expandAllBtn">Expand all levels</button>
+      <button class="utility-btn" id="collapseAllBtn">Collapse all levels</button>
+      <button class="utility-btn" id="nextUnreadBtn">Next unread</button>
+      <button class="utility-btn primary" id="copyVisibleBtn">Copy visible reading list</button>
+      <button class="utility-btn" id="resetFiltersBtn">Reset filters</button>
+      <span class="copy-toast" id="copyToast">Copied</span>
+    </div>
+
+    <div class="controls-summary">
+      <span>Visible primary books: <strong id="visiblePrimaryCount">0</strong></span>
+      <span>Visible rotation items: <strong id="visibleRotationCount">0</strong></span>
+      <span>Marked read: <strong id="readCount">0</strong></span>
+      <span>Active category: <strong id="activeCategoryLabel">All</strong></span>
+    </div>
+  </div>
+</div>
+
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="section-notice">
+    <strong>Selection criteria:</strong> All books drawn exclusively from the ASSET ONE library (802 books). Each pick optimizes for <em>broad accessibility + substantive depth</em> — no oversimplified handholding, no graduate-level gatekeeping. Intensity ratings (1–5 pips) indicate cognitive load, not quality. Each book comfortably fits a 15-hr/month study cadence with time for re-reading key chapters and group discussion.
+  </div>
+
+  <!-- ═══════════════════════════════════════════ LEVEL 0 ═══════════════ -->
+  <div class="level-block">
+    <div class="level-header">
+      <div class="level-badge l0">
+        <span class="lvl-num">0</span>
+        <span class="lvl-lbl">INTRO</span>
+      </div>
+      <div class="level-meta">
+        <div class="level-title">Definition &amp; Introduction</div>
+        <div class="level-desc">Economics, market types, theory, structure, history — stories and biographies — proof it could be done and why it's worth the hassle</div>
+        <div class="level-tags">
+          <span class="tag time">½ Month · 4-hr YouTube video</span>
+          <span class="tag hrs">~7–8 hrs reading</span>
+          <span class="tag books">1 Book</span>
+        </div>
+      </div>
+    </div>
+    <div class="books-grid">
+      <div class="month-label">Book for the ½ Month</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-0">M½</div>
+          <div class="cat-dot-sm dot-mh"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Reminiscences of a Stock Operator</div>
+          <div class="book-author">Edwin Lefèvre — disguised biography of Jesse Livermore</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The single most widely read book in trading history. It reads as a novel — fast-paced, entertaining, no equations — yet smuggles in every foundational market concept: speculation vs. investing, crowd behavior, why markets move, the emotional rollercoaster of a trading career, and the rare proof that consistent profits are possible. It answers "is this worth doing?" better than any textbook. Pairs perfectly with the intro video: the video explains the system, this book shows a human living inside it.
+          </div>
+          <div class="instructor-note"><strong>Instructor note:</strong> Pair with chapters from "The Ascent of Money" (also in library) if the group wants a broader financial history angle. Livermore is the hook; Ferguson is the context.</div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>The Ascent of Money</em> — Niall Ferguson <span class="tag-broad">breadth</span> — Sweeping financial history of the world: bonds, stocks, insurance, real estate, derivatives. Ideal context layer for the intro video's market-theory content.</li>
+              <li><em>How an Economy Grows and Why It Crashes</em> — Peter Schiff <span class="tag-broad">breadth</span> — Short illustrated fable on economic fundamentals. Extremely accessible; useful if students need economics basics reinforced before Level 2.</li>
+              <li><em>Jesse Livermore: World's Greatest Stock Trader</em> — Richard Smitten <span class="tag-depth">depth</span> — Full biographical treatment of Livermore beyond the Lefèvre account. For students hooked by <em>Reminiscences</em> who want the complete, documented story.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-0"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">1/5 · NARRATIVE</div>
+          <div class="category-tag cat-mh">Market History &amp; Narratives</div>
+          <div class="pages-tag">~280 pages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ LEVEL 1 ═══════════════ -->
+  <div class="level-block">
+    <div class="level-header">
+      <div class="level-badge l1">
+        <span class="lvl-num">1</span>
+        <span class="lvl-lbl">PRIMITIVES</span>
+      </div>
+      <div class="level-meta">
+        <div class="level-title">Primitives &amp; Fundamentals</div>
+        <div class="level-desc">Personal finance, wealth building, trading psychology, risk management, mindset and personal development</div>
+        <div class="level-tags">
+          <span class="tag time">1.5–2 Months · 3 sessions/wk</span>
+          <span class="tag hrs">15 hrs/month</span>
+          <span class="tag books">2 Books</span>
+        </div>
+      </div>
+    </div>
+    <div class="books-grid">
+      <div class="month-label">Month 1 — Personal Finance &amp; Wealth Mindset</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-1">M1</div>
+          <div class="cat-dot-sm dot-pf"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Rich Dad Poor Dad</div>
+          <div class="book-author">Robert T. Kiyosaki</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The most universally accessible entry point into financial literacy. The asset/liability mental model, the cash flow quadrant, the idea that your house is not an asset — these concepts rewire how students think about money before they touch a single chart. Controversial, yes, and intentionally simplified — but those are features, not bugs, for Level 1. Every student regardless of background walks away with a shifted frame. Do not expect investing rigor; expect a mindset overhaul.
+          </div>
+          <div class="warn-note"><strong>Instructor flag:</strong> Kiyosaki over-simplifies and some advice is legally/practically dubious. Frame it explicitly as a <em>mindset primer</em>, not an investing manual. The financial independence philosophy is what matters here.</div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>The Millionaire Next Door</em> — Thomas Stanley &amp; William Danko <span class="tag-depth">depth</span> — Data-driven counterpoint to Kiyosaki. Shows how actual millionaires build wealth — frugality, discipline, income-to-lifestyle ratio. Grounds the mindset in empirical reality.</li>
+              <li><em>MONEY Master the Game</em> — Tony Robbins <span class="tag-broad">breadth</span> — Interviews with 50 top investors distilled into a wealth-building framework. More comprehensive on investment vehicles than Kiyosaki; accessible but substantial.</li>
+              <li><em>The Barefoot Investor</em> — Scott Pape <span class="tag-exec">execution</span> — Extremely practical step-by-step personal finance system: accounts, buckets, debt payoff, insurance. Best "now do this" companion to Kiyosaki's mindset shift.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-1"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">1/5 · ACCESSIBLE</div>
+          <div class="category-tag cat-pf">Personal Finance</div>
+          <div class="pages-tag">~336 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 2 — Trading Psychology &amp; Mental Framework</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-1">M2</div>
+          <div class="cat-dot-sm dot-tp"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Trading in the Zone</div>
+          <div class="book-author">Mark Douglas</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The definitive text on trading psychology — arguably the most important book in the entire curriculum. Douglas explains why technically proficient traders still lose: they haven't internalized probability thinking. Concepts like "thinking in distributions," eliminating the need to know what comes next, and building a beliefs system consistent with market realities are foundational to everything that follows. Short enough (240 pages) to read twice in a month. Students should keep this book for life.
+          </div>
+          <div class="instructor-note"><strong>Instructor note:</strong> Test comprehension on the five fundamental truths and the concept of a "trading edge." Students who internalize this before learning strategy will learn strategy faster.</div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>The Disciplined Trader</em> — Mark Douglas <span class="tag-depth">depth</span> — Douglas's earlier book, which <em>Trading in the Zone</em> grew out of. More philosophical and slower-paced; excellent for students who want to go deeper on the belief-system framework before Layer 3 strategy work.</li>
+              <li><em>Trading Psychology 2.0</em> — Brett Steenbarger <span class="tag-broad">breadth</span> — The modern, research-backed companion to Douglas. Steenbarger integrates cognitive science, performance psychology, and trading. More evidence-based than Douglas's introspective approach — useful for analytically-minded students.</li>
+              <li><em>The Daily Trading Coach</em> — Brett Steenbarger <span class="tag-exec">execution</span> — 101 structured lessons for self-coaching. Workbook-style; ideal for students who want to apply psychology concepts through daily practice rather than just conceptual reading.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-1"></div>
+            <div class="intensity-pip pip-on-1"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">2/5 · CONCEPTUAL</div>
+          <div class="category-tag cat-tp">Psychology &amp; Risk</div>
+          <div class="pages-tag">~240 pages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ LEVEL 2 ═══════════════ -->
+  <div class="level-block">
+    <div class="level-header">
+      <div class="level-badge l2">
+        <span class="lvl-num">2</span>
+        <span class="lvl-lbl">BASICS</span>
+      </div>
+      <div class="level-meta">
+        <div class="level-title">Basics &amp; Essentials</div>
+        <div class="level-desc">Fundamental analysis (macro news), value/financial investing, and technical analysis</div>
+        <div class="level-tags">
+          <span class="tag time">~3 Months · 3 sessions/wk</span>
+          <span class="tag hrs">15 hrs/month</span>
+          <span class="tag books">3 Books</span>
+        </div>
+      </div>
+    </div>
+    <div class="books-grid">
+      <div class="month-label">Month 1 — Macro &amp; Fundamental Analysis</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-2">M1</div>
+          <div class="cat-dot-sm dot-ec"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">The Trader's Guide to Key Economic Indicators</div>
+          <div class="book-author">Richard Yamarone</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> Bridges the gap between abstract economics and real market moves. Covers every major data release — GDP, CPI, NFP, PMI, retail sales — explaining what each measures, why markets react, and how to position around them. Written explicitly for traders, not economists. Mid-level execution: conceptual enough to explain the "why," practical enough to apply immediately in news-based trading. The most directly useful macro reference for a developing trader.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>The Secrets of Economic Indicators</em> — Bernard Baumohl <span class="tag-broad">breadth</span> — The most comprehensive catalogue of economic indicators — broader coverage than Yamarone's trader-focused treatment. Better as a reference shelf book than a cover-to-cover read.</li>
+              <li><em>Market Sense and Nonsense</em> — Jack Schwager <span class="tag-depth">depth</span> — Dismantles common investment myths (past performance, diversification fallacies) using data. Provides critical thinking armor against the macro narratives students will encounter in trading.</li>
+              <li><em>Mastering the Market Cycle</em> — Howard Marks <span class="tag-depth">depth</span> — How economic and credit cycles shape market returns. Marks's probabilistic, cycle-aware framework is the most durable macro lens for developing traders — complements indicator-reading with broader cycle context.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-2"></div>
+            <div class="intensity-pip pip-on-2"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">2/5 · PRACTICAL</div>
+          <div class="category-tag cat-ec">Economics &amp; Theory</div>
+          <div class="pages-tag">~320 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 2 — Value &amp; Financial Investing</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-2">M2</div>
+          <div class="cat-dot-sm dot-vi"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">The Intelligent Investor</div>
+          <div class="book-author">Benjamin Graham, revised by Jason Zweig</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> Warren Buffett called it "the best book about investing ever written." The modern revised edition with Zweig's commentary is highly readable, grounding the 1949 principles in contemporary examples. Covers margin of safety, Mr. Market allegory, the difference between investor and speculator, and how to read companies as businesses. This is the conceptual backbone of all fundamental analysis that follows. Not a quick read — 15 hrs means reading the core chapters carefully, not cover to cover.
+          </div>
+          <div class="instructor-note"><strong>Instructor note:</strong> Focus chapters 1, 8, 20, and the Postscript for the core philosophy. Chapters on specific calculations can be assigned as reference, not primary reading.</div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>The Warren Buffett Way</em> — Robert Hagstrom <span class="tag-exec">execution</span> — Translates Graham's abstract principles into Buffett's actual investment process. Shows how to apply the Intelligent Investor's philosophy to real stock selection. The most practical companion to Graham for students who want to act on what they've read.</li>
+              <li><em>Value Investing: From Graham to Buffett and Beyond</em> — Greenwald et al. <span class="tag-depth">depth</span> — The Columbia Business School value investing course in book form. Covers franchise value, asset value, and earnings power in modern contexts. More technically rigorous than Graham's prose while remaining accessible.</li>
+              <li><em>The Most Important Thing Illuminated</em> — Howard Marks <span class="tag-broad">breadth</span> — Marks's investment philosophy annotated by peers including Buffett and Klarman. Introduces second-level thinking and risk consciousness as a counterpart to Graham's valuation focus.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-2"></div>
+            <div class="intensity-pip pip-on-2"></div>
+            <div class="intensity-pip pip-on-2"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">3/5 · SUBSTANTIAL</div>
+          <div class="category-tag cat-vi">Value Investing</div>
+          <div class="pages-tag">~640 pages (curated)</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 3 — Technical Analysis</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-2">M3</div>
+          <div class="cat-dot-sm dot-ta"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Technical Analysis of the Financial Markets</div>
+          <div class="book-author">John J. Murphy</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The industry-standard TA textbook — used in the CMT curriculum. Covers everything from Dow Theory and chart construction to trends, support/resistance, patterns, volume, and major indicators. Murphy's writing is clear and visual. This is the single book that earns its place as a permanent reference, not just a one-time read. At Level 2, students work through the conceptual half (Chs. 1–10); at later levels, the indicator chapters become active working references.
+          </div>
+          <div class="instructor-note"><strong>Instructor note:</strong> Assign Chapters 1–10 for the month. Chapters 11–20 on indicators are reference material for Level 3 onwards. The chapter on intermarket analysis (Ch. 18) is a preview of Level 4.</div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Technical Analysis: The Complete Resource for Financial Market Technicians</em> — Kirkpatrick &amp; Dahlquist <span class="tag-depth">depth</span> — The CMT Program's official companion text. More academically rigorous than Murphy, with statistical testing of TA methods. For students who want the evidence base behind the techniques.</li>
+              <li><em>Encyclopedia of Chart Patterns</em> — Thomas Bulkowski <span class="tag-exec">execution</span> — Statistical performance data for every chart pattern — failure rates, profit targets, breakout statistics. Pure pattern reference; ideal for students focused on execution. One of the most useful trading shelf books available.</li>
+              <li><em>Evidence Based Technical Analysis</em> — David Aronson <span class="tag-depth">depth</span> — Applies rigorous statistical hypothesis testing to TA methods. Challenging but important: forces students to distinguish between patterns with genuine predictive validity and those that are noise. Builds critical thinking about TA claims.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-2"></div>
+            <div class="intensity-pip pip-on-2"></div>
+            <div class="intensity-pip pip-on-2"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">3/5 · REFERENCE</div>
+          <div class="category-tag cat-ta">Technical Analysis</div>
+          <div class="pages-tag">~576 pages (curated)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ LEVEL 3 ═══════════════ -->
+  <div class="level-block">
+    <div class="level-header">
+      <div class="level-badge l3">
+        <span class="lvl-num">3</span>
+        <span class="lvl-lbl">BEGINNER</span>
+      </div>
+      <div class="level-meta">
+        <div class="level-title">Beginner Strategies &amp; Systems</div>
+        <div class="level-desc">Trading strategies, systematic thinking, algo analysis and backtesting, research basics — from idea to execution rules</div>
+        <div class="level-tags">
+          <span class="tag time">~6 Months · 3 sessions/wk</span>
+          <span class="tag hrs">15 hrs/month</span>
+          <span class="tag books">6 Books</span>
+        </div>
+      </div>
+    </div>
+    <div class="books-grid">
+      <div class="month-label">Month 1 — System Design Philosophy</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-3">M1</div>
+          <div class="cat-dot-sm dot-ts"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Trade Your Way to Financial Freedom</div>
+          <div class="book-author">Van K. Tharp</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The best book on <em>how to think about building a trading system</em> before building one. Tharp introduces expectancy (the mathematical edge), position sizing as the prime driver of returns, and the concept that there is no universal system — only systems that fit individual traders. Essential for wiring the mind correctly before picking strategies. Forms the "why systematic?" justification that underlies all of Level 3.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Van Tharp's Definitive Guide to Position Sizing</em> — Van K. Tharp <span class="tag-depth">depth</span> — The full treatment of Tharp's most important concept. If students absorb one idea from this level, it should be position sizing. This book covers it exhaustively — from fixed fractional to optimal f to portfolio-level sizing.</li>
+              <li><em>Systematic Trading</em> — Robert Carver <span class="tag-depth">depth</span> — A more rigorous, quantitative treatment of building systematic strategies. Carver covers forecast construction, instrument diversification, and capital allocation in a framework compatible with Tharp's philosophy but more mathematically grounded.</li>
+              <li><em>The New Market Wizards</em> — Jack Schwager <span class="tag-broad">breadth</span> — The sequel to Market Wizards. Reading this after Tharp shows students how diverse the approaches of successful systematic traders actually are — validating Tharp's core thesis that there is no single right system.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">3/5 · CONCEPTUAL</div>
+          <div class="category-tag cat-ts">Trading Strategies</div>
+          <div class="pages-tag">~352 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 2 — Structured Stock Strategy (Momentum + Research)</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-3">M2</div>
+          <div class="cat-dot-sm dot-ts"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">How to Make Money in Stocks</div>
+          <div class="book-author">William J. O'Neil</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The CAN SLIM system is one of the few retail-accessible methodologies that combines fundamental screens (earnings, sales, margins) with technical entry rules (breakouts from proper bases) into a complete, testable strategy. O'Neil demonstrates how to go from research idea → chart setup → entry criteria → exit rules — exactly the "from idea to execution" requirement. Concrete, rules-based, and historically back-tested over decades.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Trade Like an O'Neil Disciple</em> — Gil &amp; Morales <span class="tag-exec">execution</span> — Written by two of O'Neil's top analysts. More tactical than O'Neil himself — covers exact entry/exit rules, position sizing in CAN SLIM context, and annotated real trade examples. Strongest execution companion to the primary text.</li>
+              <li><em>In the Trading Cockpit with the O'Neil Disciples</em> — Gil &amp; Morales <span class="tag-exec">execution</span> — The sequel, showing live trading decisions with chart annotations in real-time market conditions. For students who want to see how the system is actually applied under market uncertainty.</li>
+              <li><em>Momentum Masters</em> — Mark Minervini et al. <span class="tag-broad">breadth</span> — Roundtable interviews with four top momentum traders. Broadens perspective beyond CAN SLIM: each practitioner uses momentum slightly differently, showing students how to adapt a framework rather than copy it rigidly.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">3/5 · PRACTICAL</div>
+          <div class="category-tag cat-ts">Trading Strategies</div>
+          <div class="pages-tag">~496 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 3 — Complete Trading Framework</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-3">M3</div>
+          <div class="cat-dot-sm dot-tp"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">The New Trading for a Living</div>
+          <div class="book-author">Alexander Elder</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> Elder's "Three Ms" framework — <em>Mind</em> (psychology), <em>Method</em> (technical strategy), <em>Money</em> (risk management) — is the most coherent trilogy for a developing trader. This updated edition covers triple screen strategy, Elder-Ray, Force Index, and a complete trading plan structure. Mid-level execution: not a pure beginner book, not an advanced one. Integrates everything learned in Levels 1–2 into a working operational system.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Come Into My Trading Room</em> — Alexander Elder <span class="tag-depth">depth</span> — Elder's earlier, more detailed treatment of the same framework — more comprehensive on the technical side, with fuller discussion of specific indicators. For students who want deeper tactical grounding in Elder's method before backtesting it in Month 4.</li>
+              <li><em>Entries &amp; Exits</em> — Alexander Elder <span class="tag-exec">execution</span> — Elder visits 16 traders' actual trading rooms and annotates their real trades. Bridges the gap between framework and execution by showing how other practitioners implement the Three Ms in practice. Highly concrete.</li>
+              <li><em>High Performance Trading</em> — Steve Ward <span class="tag-broad">breadth</span> — 35 structured strategies from performance psychology applied to trading. Complements Elder's framework with actionable behavioral exercises — useful for students who want to operationalize the psychological components, not just read about them.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">3/5 · INTEGRATIVE</div>
+          <div class="category-tag cat-tp">Psychology &amp; Risk</div>
+          <div class="pages-tag">~336 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 4 — Backtesting &amp; System Validation</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-3">M4</div>
+          <div class="cat-dot-sm dot-aq"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Building Winning Algorithmic Trading Systems</div>
+          <div class="book-author">Kevin J. Davey</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> Written by a three-time World Cup Trading Champion. Davey shows step-by-step how to design a strategy, stress-test it, walk-forward optimize it, and transition it to live trading. Critically, he also explains the ways backtests fail — overfitting, look-ahead bias, selection bias — making students intelligent skeptics of their own systems. The most practical backtesting-to-execution book in the library. Accessible without requiring programming.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Evaluation and Optimization of Trading Strategies</em> — Robert Pardo <span class="tag-depth">depth</span> — The academic-practitioner deep dive into walk-forward optimization and out-of-sample testing. More rigorous than Davey's practitioner account — covers statistical significance of backtests, objective function selection, and the robustness testing that separates real edges from curve-fits.</li>
+              <li><em>Quantitative Trading Systems</em> — Howard Bandy <span class="tag-depth">depth</span> — Bandy's systematic approach to building and validating systems covers regime detection, Monte Carlo simulation, and position sizing under uncertainty. Harder than Davey but covers the methodology gaps that lead traders to over-trust their backtests.</li>
+              <li><em>Design, Testing, and Optimization of Trading Systems</em> — Robert Pardo <span class="tag-exec">execution</span> — An earlier, more concise Pardo work covering the same territory. If students find the full <em>Evaluation and Optimization</em> too heavy, this earlier volume is an accessible stepping stone to rigorous backtesting methodology.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">4/5 · METHODICAL</div>
+          <div class="category-tag cat-aq">Algo &amp; Quant</div>
+          <div class="pages-tag">~320 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 5 — Algo Analysis (Conceptual)</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-3">M5</div>
+          <div class="cat-dot-sm dot-aq"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Inside the Black Box: The Simple Truth About Quantitative Trading</div>
+          <div class="book-author">Rishi K. Narang</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> Demystifies quantitative trading without a single equation. Narang explains how quant funds actually work — alpha generation, risk models, execution systems, portfolio construction — in plain language. After Davey's hands-on approach, this provides the conceptual map of the professional algorithmic landscape. Students understand what they're building toward even before they can code it. Excellent preparation for Level 4's cross-asset systematic work.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>A Man For All Markets</em> — Edward O. Thorp <span class="tag-broad">breadth</span> — Thorp invented card-counting and then beat Wall Street using quantitative methods before quant trading existed as a profession. One of the most inspiring stories in the library; gives students a historical anchor for quantitative edge-finding and validates the systematic approach emotionally.</li>
+              <li><em>The Quants</em> — Scott Patterson <span class="tag-broad">breadth</span> — Narrative history of how quantitative traders came to dominate Wall Street. Provides the industry context for Narang's conceptual framework — who built these black boxes and what happened when they all failed simultaneously in 2007.</li>
+              <li><em>Algorithmic Trading and DMA</em> — Barry Johnson <span class="tag-depth">depth</span> — The most technically complete book on algorithmic execution — order types, market microstructure, smart order routing, and DMA mechanics. For students who want to understand not just strategy but how their orders interact with the actual market.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">3/5 · CONCEPTUAL</div>
+          <div class="category-tag cat-aq">Algo &amp; Quant</div>
+          <div class="pages-tag">~256 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 6 — Quantitative Research Synthesis</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-3">M6</div>
+          <div class="cat-dot-sm dot-aq"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Quantitative Trading: How to Build Your Own Algorithmic Trading Business</div>
+          <div class="book-author">Ernest P. Chan</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The Level 3 capstone. Chan bridges research process and live execution — how to source ideas, build and test a quantitative strategy, manage execution and transaction costs, and run a systematic trading operation. Light programming context (MATLAB/Excel examples) but fully readable without coding background. Connects the "research to rules" pipeline completed across the prior 5 months into a cohesive professional framework.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>New Trading Systems and Methods</em> — Perry Kaufman <span class="tag-depth">depth</span> — The most comprehensive systematic trading methodology reference in the library — covers hundreds of systems, indicators, and approaches with performance statistics. A lifetime reference for students entering systematic research.</li>
+              <li><em>Successful Algorithmic Trading</em> (QSTrader/Michael Halls-Moore) <span class="tag-exec">execution</span> — Bridges the conceptual level of Chan's book to actual Python implementation. For students ready to move from Excel/MATLAB to code-based backtesting — the most practical execution pathway from Chan's framework.</li>
+              <li><em>What Works on Wall Street</em> — James O'Shaughnessy <span class="tag-depth">depth</span> — Largest-scale quantitative study of stock market strategies using decades of data. Provides empirical grounding for the kinds of fundamental and technical factors students may build into their first systematic strategies.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-on-3"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">4/5 · TECHNICAL</div>
+          <div class="category-tag cat-aq">Algo &amp; Quant</div>
+          <div class="pages-tag">~224 pages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ LEVEL 4 ═══════════════ -->
+  <div class="level-block">
+    <div class="level-header">
+      <div class="level-badge l4">
+        <span class="lvl-num">4</span>
+        <span class="lvl-lbl">INTERMEDIATE</span>
+      </div>
+      <div class="level-meta">
+        <div class="level-title">Intermediate — Multi-Instrument</div>
+        <div class="level-desc">Commodities, options, futures, FX, crypto, and cross-asset integration</div>
+        <div class="level-tags">
+          <span class="tag time">~12 Months · 3 sessions/wk</span>
+          <span class="tag hrs">15 hrs/month</span>
+          <span class="tag books">12 Books</span>
+        </div>
+      </div>
+    </div>
+    <div class="books-grid">
+      <div class="month-label">Month 1 — FX Foundations</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M1</div>
+          <div class="cat-dot-sm dot-ts"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Day Trading and Swing Trading the Currency Market</div>
+          <div class="book-author">Kathy Lien</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The most comprehensive and practical FX trading book available — covers technical strategies, fundamental drivers (central bank policy, economic releases, carry trade), currency-specific behavior, and tactical trade setups. Lien writes as a practitioner, not a theorist. Best single volume for a trader entering FX markets. Covers all major pairs with specific tactical depth.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>The Little Book of Currency Trading</em> — Kathy Lien <span class="tag-exec">execution</span> — Lien's condensed, accessible companion. Useful as a pre-reading primer if students find the full book heavy on first pass, or as a structured review of core concepts at month-end before the exam.</li>
+              <li><em>Currency Wars</em> — James Rickards <span class="tag-broad">breadth</span> — How central bank currency interventions and devaluations shape global FX dynamics. Adds the geopolitical and monetary policy layer missing from Lien's tactical focus — important context for fundamental FX analysis.</li>
+              <li><em>Forex on Five Hours a Week</em> — Raghee Horner <span class="tag-exec">execution</span> — A structured, part-time trading system for FX using the 34 EMA Wave. Very concrete and tactical — good for students who want a simple, rules-based FX execution framework alongside Lien's broader education.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">3/5 · PRACTICAL</div>
+          <div class="category-tag cat-ts">Trading Strategies</div>
+          <div class="pages-tag">~368 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 2 — FX Institutional Perspective</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M2</div>
+          <div class="cat-dot-sm dot-ts"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Beat the Forex Dealer</div>
+          <div class="book-author">Agustín Silvani</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The only book that explains how FX dealers and banks actually operate — stop hunting, spread manipulation, liquidity dynamics — and how retail traders can navigate against it. Fills a critical blind spot left by Lien's technical approach. After this, students understand who is on the other side of their trades and how to structure entries to avoid institutional disadvantages.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Forex Price Action Scalping</em> — Bob Volman <span class="tag-exec">execution</span> — Hyper-focused on short-term price action in FX. Volman's approach is meticulous and rule-bound — ideal for students who want an execution framework built entirely on price without relying on indicators. Demanding but formative for execution discipline.</li>
+              <li><em>Naked Forex</em> — Alex Nekritin &amp; Walter Peters <span class="tag-exec">execution</span> — Price-action-only approach to FX trading using no indicators. Covers big-picture analysis, entry triggers, and trade management. Good for students who want a stripped-down counter-approach to Lien's indicator-based methods.</li>
+              <li><em>Forex Wave Theory</em> — James Bickford <span class="tag-depth">depth</span> — Applies Elliott Wave and cycle analysis to FX markets specifically. For students interested in wave-based analysis as a structured method beyond standard technical patterns.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">3/5 · TACTICAL</div>
+          <div class="category-tag cat-ts">Trading Strategies</div>
+          <div class="pages-tag">~256 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 3 — Options Foundations</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M3</div>
+          <div class="cat-dot-sm dot-ot"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Getting Started in Options</div>
+          <div class="book-author">Michael C. Thomsett</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The gentlest entry point into options — puts, calls, basic strategies (covered calls, protective puts, spreads), terminology, and risk profiles — without options pricing theory yet. Sets the vocabulary and intuition before the heavier Natenberg and McMillan books. Students should finish this month able to explain any basic option strategy to a peer.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Understanding Options</em> — Michael Sincere <span class="tag-broad">breadth</span> — A parallel accessible intro covering the same foundational territory. Useful as a second exposure with slightly different examples and framing — some students absorb options mechanics better with two explanations of the same concepts.</li>
+              <li><em>Think Like an Option Trader</em> — Michael Hanania Benklifa <span class="tag-broad">breadth</span> — Argues for shifting from stock-market thinking (directional) to options-market thinking (volatility and probability). Builds the mental reframe that makes options education stick — essential before diving into strategy mechanics.</li>
+              <li><em>Trading Options For Dummies</em> — Joe Duarte <span class="tag-exec">execution</span> — The most practically structured options intro for execution — walks through opening a brokerage account, placing trades, managing positions. For students who want to move from concept to live paper-trading during the month.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">2/5 · FOUNDATIONAL</div>
+          <div class="category-tag cat-ot">Options Trading</div>
+          <div class="pages-tag">~336 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 4 — Options Strategy (Comprehensive)</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M4</div>
+          <div class="cat-dot-sm dot-ot"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Options as a Strategic Investment</div>
+          <div class="book-author">Lawrence G. McMillan</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The professional options reference — exhaustive coverage of every major strategy with risk/reward profiles, Greeks exposure, and tactical adjustments. At 1,000+ pages it is not read cover-to-cover; assign the core strategy chapters (Chs. 1–10, 15, 20) and treat the rest as a lifelong reference. After Thomsett's foundation, this is the book practitioners use.
+          </div>
+          <div class="warn-note"><strong>Instructor flag:</strong> This is dense and long. Assign specific chapters, not the full book. Focus: buying and selling puts/calls, spreads, straddles, and the Greeks chapter. Omit exotic structures until Level 5.</div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>The Bible of Options Strategies</em> — Guy Cohen <span class="tag-exec">execution</span> — Every options strategy presented in a standardized format: description, sentiment, profit/loss profile, breakevens, Greeks exposure. Pure execution reference — complements McMillan's explanatory prose with a visual strategy-by-strategy lookup format.</li>
+              <li><em>The Option Trader's Hedge Fund</em> — Dennis Chen &amp; Mark Sebastian <span class="tag-exec">execution</span> — Focuses on systematic income generation through options selling (covered calls, cash-secured puts, credit spreads). For students oriented toward income-producing option strategies rather than speculative directional plays.</li>
+              <li><em>Trading Options Greeks</em> — Dan Passarelli <span class="tag-depth">depth</span> — Dedicated book on the Greeks — not just what they are, but how to actively trade them. Delta hedging, vega positioning, theta decay management. Bridges McMillan's strategy coverage with Natenberg's pricing theory, making Month 5 more approachable.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">4/5 · REFERENCE</div>
+          <div class="category-tag cat-ot">Options Trading</div>
+          <div class="pages-tag">~1000+ pages (curated)</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 5 — Options Pricing &amp; Volatility</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M5</div>
+          <div class="cat-dot-sm dot-ot"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Option Volatility and Pricing</div>
+          <div class="book-author">Sheldon Natenberg</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The text that options market makers study. Covers theoretical pricing, the Greeks (delta, gamma, vega, theta, rho) in full practical depth, volatility trading strategies, and risk management. After two months of strategy, students need to understand <em>why</em> options are priced the way they are and how volatility is the true underlying variable being traded. This permanently upgrades options intuition.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Option Trading: Pricing and Volatility Strategies and Techniques</em> — Euan Sinclair <span class="tag-depth">depth</span> — Natenberg for practitioners who want the next level. Covers volatility forecasting models, skew, term structure, and stat-arb strategies around options pricing. Bridges Natenberg's theoretical framework with active vol-trading practice.</li>
+              <li><em>The Volatility Edge in Options Trading</em> — Jeff Augen <span class="tag-exec">execution</span> — Focuses on exploiting structural volatility patterns — pre-earnings, expiration anomalies, event-driven pricing errors. Very execution-oriented; shows students where and when mispricing occurs in practice.</li>
+              <li><em>Trading VIX Derivatives</em> — Russell Rhoads <span class="tag-broad">breadth</span> — Covers VIX futures, options, and ETPs as instruments in their own right. Extends Natenberg's volatility framework to the volatility asset class itself — important as volatility products have become a distinct tradeable market.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">4/5 · TECHNICAL</div>
+          <div class="category-tag cat-ot">Options Trading</div>
+          <div class="pages-tag">~448 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 6 — Futures &amp; Derivatives Foundations</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M6</div>
+          <div class="cat-dot-sm dot-cf"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Futures Made Simple</div>
+          <div class="book-author">Kel Butcher</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The most accessible intro to futures markets — contract mechanics, margin, rollover, basis, hedging vs. speculation, and the major futures markets (equity, fixed income, commodities, FX). Intentionally simple, practical, and short. Sets the foundation cleanly before Hull's more rigorous treatment. Students should understand futures contract mechanics in detail after this month.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Trading Commodities and Financial Futures</em> — George Kleinman <span class="tag-exec">execution</span> — Step-by-step guide to trading futures markets covering both commodities and financials. More execution-focused than Butcher — covers order types, spread trading, seasonal patterns, and practical trade management for the futures trader.</li>
+              <li><em>A Complete Guide to the Futures Market</em> — Jack Schwager <span class="tag-depth">depth</span> — Schwager's comprehensive treatment of futures — technical analysis, fundamental analysis, trading systems, spreads, and risk management, all specifically in futures context. The futures equivalent of Murphy's TA book; a lifetime reference.</li>
+              <li><em>Diary of a Professional Commodity Trader</em> — Peter Brandt <span class="tag-broad">breadth</span> — A real practitioner's year of futures trading in real-time journal form. Chart patterns, trade rationale, and results across commodity markets. Grounds the mechanical Month 6 content in the reality of a professional futures trading practice.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">2/5 · ACCESSIBLE</div>
+          <div class="category-tag cat-cf">Commodities &amp; Futures</div>
+          <div class="pages-tag">~224 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 7 — Derivatives (Comprehensive)</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M7</div>
+          <div class="cat-dot-sm dot-cf"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Options, Futures and Other Derivatives</div>
+          <div class="book-author">John C. Hull</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The academic standard for derivatives — used in every finance MBA program and professional certification. Covers futures pricing, binomial trees, Black-Scholes, swaps, credit derivatives, exotic options. Not every section is accessible to every student, but the conceptual rigor it provides on pricing and risk management is unmatched. Assign Chs. 1–6 (futures fundamentals) and Chs. 10–12 (basic options pricing) as core; rest as optional depth.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Derivatives Demystified</em> — Andrew Chisholm <span class="tag-broad">breadth</span> — Plain-language walkthrough of forwards, futures, swaps, and options for non-quants. The accessible companion for students struggling with Hull's mathematical sections — covers the same instruments conceptually without the algebra.</li>
+              <li><em>Commodities and Commodity Derivatives</em> — Hélyette Geman <span class="tag-depth">depth</span> — Specialized treatment of commodity derivatives pricing — energy, metals, agriculture — with Python-based analytics. For students with a quantitative background who want commodity-specific derivative modelling beyond Hull's generic framework.</li>
+              <li><em>Derivatives Analytics with Python</em> — Yves Hilpisch <span class="tag-exec">execution</span> — Implements Hull's derivative pricing models in Python. Bridges the conceptual/mathematical content of Hull to executable code — the natural next step for students who want to actually build derivative pricing tools.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+          </div>
+          <div class="intensity-lbl">5/5 · RIGOROUS</div>
+          <div class="category-tag cat-cf">Commodities &amp; Futures</div>
+          <div class="pages-tag">~896 pages (curated)</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 8 — Commodities</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M8</div>
+          <div class="cat-dot-sm dot-cf"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Hot Commodities</div>
+          <div class="book-author">Jim Rogers</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> Rogers built one of the greatest track records in commodity investing. This book covers the supply/demand fundamentals driving each commodity market (energy, metals, agriculture, soft commodities), commodity supercycles, and how to think about commodity investments in a portfolio context. Engaging narrative style — not a dry textbook — which makes the macro commodity framework actually memorable.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Oil 101</em> — Morgan Downey <span class="tag-depth">depth</span> — The definitive primer on the global oil market — from wellhead to refinery to consumer. Covers oil pricing mechanics, OPEC dynamics, refining spreads, and futures market structure. Essential depth for the single most traded commodity market.</li>
+              <li><em>The Prize</em> — Daniel Yergin <span class="tag-broad">breadth</span> — Pulitzer Prize-winning history of oil's role in shaping the modern world. The geopolitical, economic, and strategic context for energy commodity trading — provides the narrative depth that explains why oil moves the way it does.</li>
+              <li><em>Commodity Strategies</em> — Thomas Dorsey <span class="tag-exec">execution</span> — Technical and fundamental analysis applied specifically to commodity markets — futures spreads, seasonal patterns, supply/demand indicators. Bridges Rogers's macro view with the tactical execution layer students need to actually trade commodities.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">2/5 · NARRATIVE</div>
+          <div class="category-tag cat-cf">Commodities &amp; Futures</div>
+          <div class="pages-tag">~272 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 9 — Crypto &amp; Digital Assets</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M9</div>
+          <div class="cat-dot-sm dot-ec"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">The Bitcoin Standard</div>
+          <div class="book-author">Saifedean Ammous</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The strongest first-principles argument for understanding what Bitcoin and crypto actually represent economically — monetary theory, sound money, the history of monetary debasement, and what decentralized currency changes about the financial system. Students who only read crypto trading tactics miss the structural shift crypto represents. This provides the "why does this asset class exist?" foundation that makes crypto more than speculative noise.
+          </div>
+          <div class="instructor-note"><strong>Instructor note:</strong> Ammous is an Austrian economist and Bitcoin maximalist — his views are intentionally one-sided. Pair with an assigned chapter from "Crypto Uncovered" (also in library) for balance on altcoins.</div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Digital Gold</em> — Nathaniel Popper <span class="tag-broad">breadth</span> — Narrative history of Bitcoin's early years — the cypherpunks, Satoshi, Mt. Gox, the Silk Road, the institutional adoption. Provides the human and historical story that complements Ammous's economic theory. Less ideological, more journalistic.</li>
+              <li><em>The Internet of Money</em> — Andreas Antonopoulos <span class="tag-broad">breadth</span> — Collected talks on why Bitcoin and blockchain matter beyond price speculation — monetary freedom, banking the unbanked, programmable money. Broadens students' frame beyond price-trading to the structural disruption crypto represents.</li>
+              <li><em>Cryptocurrency: Ultimate Beginners Guide</em> — Matthew Connor <span class="tag-exec">execution</span> — Practical coverage of the broader crypto market ecosystem — Bitcoin, Ethereum, altcoins, exchanges, wallets, and market dynamics. For students who want to understand the actual crypto trading landscape rather than just Bitcoin's economic theory.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">3/5 · ECONOMIC</div>
+          <div class="category-tag cat-ec">Economics &amp; Theory</div>
+          <div class="pages-tag">~304 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 10 — Intermarket Analysis</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M10</div>
+          <div class="cat-dot-sm dot-ts"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Trading with Intermarket Analysis</div>
+          <div class="book-author">John J. Murphy</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> How the four major asset classes — stocks, bonds, commodities, and currencies — interact and lead each other. After 9 months studying each individually, students need to see the unified picture. Murphy shows how commodity moves predict inflation, how inflation affects bond prices, how bond yields affect equities, and how FX flows tie everything together. Using ETFs as the practical vehicle makes this immediately actionable.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Intermarket Trading Strategies</em> — Markos Katsanos <span class="tag-exec">execution</span> — Quantifies Murphy's intermarket relationships into backtested, rule-based trading systems. Bridges the conceptual intermarket framework with actual executable signals — the natural "now trade it" companion to Murphy's theory.</li>
+              <li><em>Global Macro Trading</em> — Greg Gliner <span class="tag-depth">depth</span> — Practitioner-level macro trading — how professional managers build macro views, size positions across asset classes, and manage drawdowns. Elevates the intermarket conceptual framework to a professional portfolio management practice.</li>
+              <li><em>Trading and Exchanges</em> — Larry Harris <span class="tag-depth">depth</span> — Market microstructure across all asset classes — how prices are actually formed, who the market participants are, and how information flows between markets. Provides the structural foundation under Murphy's macro relationships.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">3/5 · INTEGRATIVE</div>
+          <div class="category-tag cat-ts">Trading Strategies</div>
+          <div class="pages-tag">~272 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 11 — Systematic Multi-Asset Trading</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M11</div>
+          <div class="cat-dot-sm dot-ts"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Following the Trend</div>
+          <div class="book-author">Andreas F. Clenow</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> The most rigorous and accessible book on systematic trend following across all futures markets — equities, FX, commodities, rates. Clenow is a practitioner who publishes his full strategy code. After 10 months studying individual instruments, this shows how to systematically combine them under one strategy framework. Evidence-based, rules-based, and written at a level that rewards both beginners and advanced traders.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>Trend Following</em> — Michael Covel <span class="tag-broad">breadth</span> — The philosophical and historical case for trend following as a trading approach — profiles of the Turtle traders, Dunn, Henry, Millburn. More inspirational than technical; excellent for building conviction in the approach before implementing it from Clenow's framework.</li>
+              <li><em>Dual Momentum Investing</em> — Gary Antonacci <span class="tag-depth">depth</span> — Applies momentum across asset classes as an alternative framework to trend following. Covers absolute vs. relative momentum and provides a simple, evidence-based system. A rigorous counterpoint to Clenow — both work, and the comparison builds critical thinking about systematic strategy design.</li>
+              <li><em>The Trend Following Bible</em> — Andrew Abraham <span class="tag-exec">execution</span> — Practical trend following covering position sizing, drawdown management, portfolio construction, and real-world implementation challenges. More execution-focused than Clenow's comprehensive treatment — useful for students ready to operationalize a trend-following system.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">4/5 · SYSTEMATIC</div>
+          <div class="category-tag cat-ts">Trading Strategies</div>
+          <div class="pages-tag">~288 pages</div>
+        </div>
+      </div>
+
+      <div class="month-label" style="margin-top:10px;">Month 12 — Level Capstone: Stories from the Masters</div>
+      <div class="book-card">
+        <div class="book-num">
+          <div class="month-circle circle-4">M12</div>
+          <div class="cat-dot-sm dot-mh"></div>
+        </div>
+        <div class="book-main">
+          <div class="book-title">Market Wizards</div>
+          <div class="book-author">Jack D. Schwager</div>
+          <div class="book-why">
+            <strong>Why this book:</strong> After 11 months of technical, systematic, and instrument-specific learning, the Level 4 capstone should re-anchor students in human trading wisdom. Schwager interviews the greatest traders of their generation — Michael Marcus, Bruce Kovner, Paul Tudor Jones, Ed Seykota — each with radically different approaches to the same markets students have just spent a year studying. Reading this after deep instrument knowledge produces a fundamentally different experience than reading it at the start. The diversity of successful approaches also guards against dogmatism.
+          </div>
+          <div class="supp-note">
+            <strong>📚 Supplementary — if time allows</strong>
+            <ul>
+              <li><em>The New Market Wizards</em> — Jack Schwager <span class="tag-broad">breadth</span> — The sequel, with a new generation of exceptional traders. Different personalities, different eras, same underlying principle: successful trading is deeply individual. Together the two Schwager volumes form the strongest possible antidote to strategy dogmatism.</li>
+              <li><em>Hedge Fund Market Wizards</em> — Jack Schwager <span class="tag-broad">breadth</span> — The third installment, focusing on hedge fund managers. More relevant to students in Level 4 who have now developed instrument and systematic knowledge — the interviewees' strategies are now intelligible at a depth that wasn't possible earlier in the curriculum.</li>
+              <li><em>Stock Market Wizards</em> — Jack Schwager <span class="tag-exec">execution</span> — Equity-focused edition. Particularly relevant for students oriented toward stocks and systematic equity strategies — covers momentum, CANSLIM-style traders, and quant equity managers who bridge Levels 3 and 4 content.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="book-meta">
+          <div class="intensity-bar">
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-on-4"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+            <div class="intensity-pip pip-off"></div>
+          </div>
+          <div class="intensity-lbl">2/5 · NARRATIVE</div>
+          <div class="category-tag cat-mh">Market History</div>
+          <div class="pages-tag">~480 pages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ LEVEL 5 ═══════════════ -->
+  <div class="level-block">
+    <div class="level-header">
+      <div class="level-badge l5">
+        <span class="lvl-num">5</span>
+        <span class="lvl-lbl">PROFESSIONAL</span>
+      </div>
+      <div class="level-meta">
+        <div class="level-title">Professional / Advanced — Lifetime Rotation</div>
+        <div class="level-desc">Market insights, research papers, institutional memos, philosophy, and keeping current — weekly group meeting, 4×/month</div>
+        <div class="level-tags">
+          <span class="tag time">Lifetime · Weekly 3-hr group sessions</span>
+          <span class="tag hrs">~12 hrs/month</span>
+          <span class="tag books">12-book annual rotation</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: var(--bg2); padding: 16px 24px 8px; border-bottom: 1px solid var(--border);">
+      <div class="section-notice" style="margin-bottom:0;">
+        <strong>Why a rotation, not a single pick:</strong> Level 5 is not a course with a fixed syllabus — it is a practice. The group's reading should rotate annually through great books, and supplement reading with research papers, institutional letters (Bridgewater Daily Observations, Howard Marks memos, Berkshire letters), and live market analysis. Below is a 12-book annual rotation. Cycle through these, replacing books as members have read them with new selections from the library.
+      </div>
+    </div>
+
+    <div class="rotation-grid">
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 01 — PHILOSOPHY</div>
+        <div class="rotation-title">Poor Charlie's Almanack</div>
+        <div class="rotation-author">Charles T. Munger</div>
+        <div class="rotation-why">Mental models for investing and life. Munger's latticework of models from multiple disciplines is the professional trader's operating system.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>Tao of Charlie Munger</em> — condensed aphorisms for revisiting Munger's best thinking <span class="tag-exec">execution</span></li><li><em>The Essays of Warren Buffett</em> — Buffett's annual letters; the operating philosophy in practice <span class="tag-depth">depth</span></li><li><em>The Education of a Value Investor</em> — Guy Spier; one practitioner's experience applying Munger's model <span class="tag-broad">breadth</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 02 — FOUNDATION</div>
+        <div class="rotation-title">Security Analysis</div>
+        <div class="rotation-author">Graham &amp; Dodd</div>
+        <div class="rotation-why">The original institutional investment text. Demands slow, careful reading. Professional-level fundamental analysis from first principles.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>Financial Shenanigans</em> — Schilit; how companies manipulate earnings — essential skeptic's companion to Graham <span class="tag-depth">depth</span></li><li><em>Value Investing: Tools and Techniques for Intelligent Investment</em> — Montier; modern quantitative value methods <span class="tag-exec">execution</span></li><li><em>Quality of Earnings</em> — Thornton O'Glove; earnings quality analysis for detecting accounting games <span class="tag-depth">depth</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 03 — MACRO THEORY</div>
+        <div class="rotation-title">Big Debt Crises</div>
+        <div class="rotation-author">Ray Dalio</div>
+        <div class="rotation-why">Dalio's template for debt cycles — archetypal crisis analysis with case studies. Essential macro framework for professional portfolio context.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>Lords of Finance</em> — Ahamed; the human story of the 1929–1933 crisis; Dalio's template in narrative form <span class="tag-broad">breadth</span></li><li><em>This Time Is Different</em> — Reinhart &amp; Rogoff; 800 years of sovereign debt crises, quantitative treatment <span class="tag-depth">depth</span></li><li><em>The Fourth Turning</em> — Strauss &amp; Howe; generational cycle theory; a macro framework that complements Dalio's debt-cycle lens <span class="tag-broad">breadth</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 04 — HISTORY</div>
+        <div class="rotation-title">Manias, Panics, and Crashes</div>
+        <div class="rotation-author">Charles P. Kindleberger</div>
+        <div class="rotation-why">The definitive historical study of financial crises across five centuries. Teaches pattern recognition in bubble/crash dynamics.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>Irrational Exuberance</em> — Shiller; empirical valuation-based bubble detection framework <span class="tag-depth">depth</span></li><li><em>Extraordinary Popular Delusions and the Madness of Crowds</em> — Mackay; the 1841 original; tulip mania, South Sea Bubble, Mississippi Scheme in primary source form <span class="tag-broad">breadth</span></li><li><em>Why Stock Markets Crash</em> — Sornette; physics-based log-periodic power law model of market crashes <span class="tag-depth">depth</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 05 — EDGE</div>
+        <div class="rotation-title">The Alchemy of Finance</div>
+        <div class="rotation-author">George Soros</div>
+        <div class="rotation-why">Soros's theory of reflexivity — how market participants' beliefs alter the fundamentals they reflect. One of the most original ideas in finance.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>Soros on Soros</em> — more accessible Q&amp;A format; entry point into Soros's thinking before Alchemy <span class="tag-broad">breadth</span></li><li><em>Capital in the Twenty-First Century</em> — Piketty; structural inequality and capital returns; macro context for long-duration investment thinking <span class="tag-depth">depth</span></li><li><em>The Wealth of Nations</em> — Adam Smith; original first-principles economics; for groups engaged in deep market theory discussions <span class="tag-depth">depth</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 06 — HEDGE FUNDS</div>
+        <div class="rotation-title">More Money Than God</div>
+        <div class="rotation-author">Sebastian Mallaby</div>
+        <div class="rotation-why">Definitive history of the hedge fund industry — models, strategies, and the personalities who shaped modern markets. Institutional perspective.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>Hedgehogging</em> — Barton Biggs; diary-style account of global macro investing from a Morgan Stanley strategist — texture of institutional decision-making <span class="tag-broad">breadth</span></li><li><em>The Alpha Masters</em> — Maneet Ahuja; profiles of 11 top hedge fund managers across strategies — in-depth practitioner interviews <span class="tag-broad">breadth</span></li><li><em>Inside the House of Money</em> — Steven Drobny; macro hedge fund interviews; directly relevant for groups running macro-oriented portfolios <span class="tag-exec">execution</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 07 — FORECASTING</div>
+        <div class="rotation-title">Superforecasting</div>
+        <div class="rotation-author">Philip Tetlock &amp; Dan Gardner</div>
+        <div class="rotation-why">Evidence-based research on prediction. Directly applicable to investment thesis construction, probability estimation, and research rigor.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>The Signal and the Noise</em> — Nate Silver; forecasting across domains — sports, weather, politics, finance — with a practitioner's calibration framework <span class="tag-broad">breadth</span></li><li><em>Thinking, Fast and Slow</em> — Kahneman; the foundational cognitive science text; System 1 / System 2 thinking directly applied to investment decision errors <span class="tag-depth">depth</span></li><li><em>The Drunkard's Walk</em> — Mlodinow; how randomness shapes life and markets; builds epistemic humility about skill vs. luck in track records <span class="tag-broad">breadth</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 08 — QUANT ML</div>
+        <div class="rotation-title">Advances in Financial Machine Learning</div>
+        <div class="rotation-author">Marcos López de Prado</div>
+        <div class="rotation-why">The frontier of quantitative research. Dense and technical — for groups with quantitative members. The most cited recent quant finance book.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>Machine Trading</em> — Ernest Chan; applying ML and statistical techniques to live trading; more accessible than López de Prado <span class="tag-exec">execution</span></li><li><em>Python for Finance</em> — Yves Hilpisch; implementation framework in Python for the quantitative techniques in the primary text <span class="tag-exec">execution</span></li><li><em>Hands-On Machine Learning with Scikit-Learn and TensorFlow</em> — Géron; the standard ML implementation guide for groups building Python-based financial ML pipelines <span class="tag-exec">execution</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 09 — NARRATIVE</div>
+        <div class="rotation-title">The Man Who Solved the Markets</div>
+        <div class="rotation-author">Gregory Zuckerman</div>
+        <div class="rotation-why">Renaissance Technologies / Jim Simons story. Explores what the most successful quant fund in history actually does, and the culture behind consistent alpha.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>A Man For All Markets</em> — Ed Thorp; inventor of quantitative finance tells his own story — from card-counting to the first quant hedge fund <span class="tag-broad">breadth</span></li><li><em>Fortune's Formula</em> — William Poundstone; Kelly Criterion, information theory, and Thorp's betting system; the mathematical underpinning of optimal position sizing <span class="tag-depth">depth</span></li><li><em>The Physics of Wall Street</em> — James Owen Weatherall; how physicists and mathematicians built modern finance — historical context for the quant revolution <span class="tag-broad">breadth</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 10 — MACRO PRACTICE</div>
+        <div class="rotation-title">Global Macro Trading</div>
+        <div class="rotation-author">Greg Gliner</div>
+        <div class="rotation-why">Practitioner-level guide to macro trading across all asset classes. Covers building macro views, expressing them, and managing macro risk at a professional level.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>Soros on Soros</em> — direct practitioner account of the most famous macro trader building and expressing macro views <span class="tag-broad">breadth</span></li><li><em>Trading and Exchanges</em> — Larry Harris; market microstructure — how macro views actually get expressed in real market structure and execution <span class="tag-depth">depth</span></li><li><em>The Alchemy of Finance</em> — Soros; the theoretical framework behind reflexivity-based macro positions — companion to Gliner's practical approach <span class="tag-depth">depth</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 11 — PORTFOLIO</div>
+        <div class="rotation-title">Active Portfolio Management</div>
+        <div class="rotation-author">Grinold &amp; Kahn</div>
+        <div class="rotation-why">Institutional standard for active management — the Fundamental Law of Active Management, information ratios, portfolio construction. Quantitative but transformative.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>Expected Returns</em> — Antti Ilmanen; comprehensive evidence-based survey of return premia across all asset classes — the empirical foundation beneath Grinold &amp; Kahn's framework <span class="tag-depth">depth</span></li><li><em>Efficiently Inefficient</em> — Lasse Pedersen; how smart money invests — bridges the Fundamental Law with actual hedge fund strategies across equity, macro, and fixed income <span class="tag-broad">breadth</span></li><li><em>Probability and Statistics for Finance</em> — Fabozzi et al.; the quantitative toolkit needed to fully engage with Grinold &amp; Kahn's mathematical content <span class="tag-depth">depth</span></li></ul></div>
+      </div>
+      <div class="rotation-card">
+        <div class="rotation-num">ROTATION 12 — RISK</div>
+        <div class="rotation-title">Against the Gods: The Remarkable Story of Risk</div>
+        <div class="rotation-author">Peter L. Bernstein</div>
+        <div class="rotation-why">A masterpiece on the history of human understanding of risk — from dice to derivatives. Deepens the philosophical relationship every professional has with uncertainty.</div>
+        <div class="supp-note" style="margin-top:8px;"><strong>📚 Supplementary</strong><ul><li><em>Fooled by Randomness</em> — Nassim Taleb; randomness, survivorship bias, and the narrative fallacy in trading and finance — Taleb's most accessible book <span class="tag-broad">breadth</span></li><li><em>The Black Swan</em> — Nassim Taleb; extreme events, fat tails, and fragility — the professional risk framework that Bernstein's history leads to <span class="tag-depth">depth</span></li><li><em>Antifragile</em> — Nassim Taleb; the constructive prescription — how to build portfolios that gain from volatility rather than just surviving it. Completes the Taleb trilogy <span class="tag-depth">depth</span></li></ul></div>
+      </div>
+    </div>
+    <div style="background: var(--bg2); padding: 16px 24px 20px;">
+      <div class="instructor-note" style="margin-top:0;"><strong>Supplementary (non-book) sources for Level 5:</strong> Bridgewater's Daily Observations and Principles, Howard Marks memos (Oaktree Capital), Berkshire Hathaway annual letters, NBER working papers, academic journals (Journal of Finance, Journal of Portfolio Management), institutional research from Goldman Sachs, JPMorgan, and similar. These should form 50–60% of session material; books anchor the conceptual framework.</div>
+    </div>
+  </div>
+
+
+  <div class="empty-state" id="emptyState">
+    No books match the current filters. Reset the filters or use a broader search term.
+  </div>
+
+
+</div><!-- /main -->
+
+<footer>
+  <span>ASSET ONE BOOKS — Reading Curriculum · 802 books · 6 levels · 35 curated selections</span>
+  <span>Generated for course instructor use</span>
+</footer>
+
+
+<script>
+(function () {
+  const categoryNames = {
+    all: 'All',
+    mh: 'Market History',
+    pf: 'Personal Finance',
+    tp: 'Psychology and Risk',
+    ec: 'Economics and Theory',
+    vi: 'Value Investing',
+    ta: 'Technical Analysis',
+    ts: 'Trading Strategies',
+    aq: 'Algo and Quant',
+    ot: 'Options',
+    cf: 'Commodities and Futures'
+  };
+
+  const storageKey = 'assetOneReadingCurriculumReadItems';
+  const state = {
+    category: 'all',
+    level: 'all',
+    intensity: 'all',
+    query: '',
+    unreadOnly: false,
+    compact: false,
+    supplements: 'hide'
+  };
+
+  let readSet = new Set();
+  try {
+    readSet = new Set(JSON.parse(localStorage.getItem(storageKey) || '[]'));
+  } catch (error) {
+    readSet = new Set();
+  }
+
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+  const searchInput = $('#searchInput');
+  const levelFilter = $('#levelFilter');
+  const intensityFilter = $('#intensityFilter');
+  const supplementFilter = $('#supplementFilter');
+  const unreadOnly = $('#unreadOnly');
+  const compactView = $('#compactView');
+  const visiblePrimaryCount = $('#visiblePrimaryCount');
+  const visibleRotationCount = $('#visibleRotationCount');
+  const readCount = $('#readCount');
+  const activeCategoryLabel = $('#activeCategoryLabel');
+  const emptyState = $('#emptyState');
+  const copyToast = $('#copyToast');
+
+  function slugify(text) {
+    return (text || '')
+      .toLowerCase()
+      .replace(/&amp;/g, 'and')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+      .slice(0, 80);
+  }
+
+  function levelOf(element) {
+    const block = element.closest('.level-block');
+    return block ? ($('.lvl-num', block)?.textContent || '').trim() : '';
+  }
+
+  function categoryOf(card) {
+    const tag = $('.category-tag', card);
+    if (!tag) return 'rotation';
+    const catClass = Array.from(tag.classList).find(cls => cls.startsWith('cat-'));
+    return catClass ? catClass.replace('cat-', '') : 'uncategorized';
+  }
+
+  function intensityOf(card) {
+    const label = $('.intensity-lbl', card);
+    if (!label) return '';
+    const match = label.textContent.match(/[1-5]/);
+    return match ? match[0] : '';
+  }
+
+  function monthLabelOf(card) {
+    let el = card.previousElementSibling;
+    while (el) {
+      if (el.classList && el.classList.contains('month-label')) return el.textContent.trim();
+      if (el.classList && el.classList.contains('book-card')) break;
+      el = el.previousElementSibling;
+    }
+    return '';
+  }
+
+  function fullTextOf(element) {
+    return element.textContent.replace(/\s+/g, ' ').trim();
+  }
+
+  function addReadButton(element, type) {
+    const title = $('.book-title', element)?.textContent || $('.rotation-title', element)?.textContent || 'item';
+    const id = `${type}-${slugify(title)}`;
+    element.dataset.readId = id;
+    const actions = document.createElement('div');
+    actions.className = type === 'book' ? 'book-actions' : 'rotation-actions';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'read-toggle';
+    button.dataset.readTarget = id;
+    actions.appendChild(button);
+
+    const target = type === 'book' ? $('.book-main', element) : element;
+    if (target && !target.querySelector(`[data-read-target="${CSS.escape(id)}"]`)) {
+      target.appendChild(actions);
+    }
+    updateReadButton(element);
+  }
+
+  function updateReadButton(element) {
+    const id = element.dataset.readId;
+    const button = element.querySelector(`[data-read-target="${CSS.escape(id)}"]`);
+    const isRead = readSet.has(id);
+    element.classList.toggle('is-read', isRead);
+    if (button) {
+      button.textContent = isRead ? '✓ Read' : '+ Mark read';
+      button.classList.toggle('is-read', isRead);
+      button.setAttribute('aria-pressed', String(isRead));
+    }
+  }
+
+  function saveReadSet() {
+    localStorage.setItem(storageKey, JSON.stringify(Array.from(readSet)));
+  }
+
+  function prepareBookCards() {
+    $$('.book-card').forEach(card => {
+      const category = categoryOf(card);
+      const intensity = intensityOf(card);
+      const level = levelOf(card);
+      const title = $('.book-title', card)?.textContent.trim() || '';
+      const author = $('.book-author', card)?.textContent.trim() || '';
+      const month = monthLabelOf(card);
+      card.dataset.type = 'book';
+      card.dataset.category = category;
+      card.dataset.level = level;
+      card.dataset.intensity = intensity;
+      card.dataset.title = title;
+      card.dataset.author = author;
+      card.dataset.month = month;
+      card.dataset.search = [
+        title,
+        author,
+        month,
+        categoryNames[category] || category,
+        fullTextOf(card)
+      ].join(' ').toLowerCase();
+      addReadButton(card, 'book');
+    });
+
+    $$('.rotation-card').forEach(card => {
+      const title = $('.rotation-title', card)?.textContent.trim() || '';
+      const author = $('.rotation-author', card)?.textContent.trim() || '';
+      const label = $('.rotation-num', card)?.textContent.trim() || '';
+      card.dataset.type = 'rotation';
+      card.dataset.category = 'rotation';
+      card.dataset.level = levelOf(card) || '5';
+      card.dataset.intensity = '';
+      card.dataset.title = title;
+      card.dataset.author = author;
+      card.dataset.month = label;
+      card.dataset.search = [title, author, label, fullTextOf(card)].join(' ').toLowerCase();
+      addReadButton(card, 'rotation');
+    });
+  }
+
+  function decorateLevels() {
+    $$('.level-block').forEach(block => {
+      const title = $('.level-title', block);
+      if (!title || title.parentElement.classList.contains('level-title-row')) return;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'level-title-row';
+      title.parentNode.insertBefore(wrapper, title);
+      wrapper.appendChild(title);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'level-toggle-btn';
+      btn.textContent = 'Collapse';
+      wrapper.appendChild(btn);
+
+      const header = $('.level-header', block);
+      header.addEventListener('click', event => {
+        if (event.target.closest('button')) return;
+        block.classList.toggle('collapsed');
+        btn.textContent = block.classList.contains('collapsed') ? 'Expand' : 'Collapse';
+      });
+      btn.addEventListener('click', event => {
+        event.stopPropagation();
+        block.classList.toggle('collapsed');
+        btn.textContent = block.classList.contains('collapsed') ? 'Expand' : 'Collapse';
+      });
+    });
+  }
+
+  function decorateLegend() {
+    const legendCats = ['mh', 'pf', 'tp', 'ec', 'vi', 'ta', 'ts', 'aq', 'ot', 'cf'];
+    $$('.legend-item').forEach((item, index) => {
+      const cat = legendCats[index];
+      if (!cat) return;
+      item.dataset.legendCategory = cat;
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+      item.addEventListener('click', () => setCategory(cat));
+      item.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          setCategory(cat);
+        }
+      });
+    });
+  }
+
+  function intensityMatches(value, filter) {
+    const n = Number(value);
+    if (filter === 'all') return true;
+    if (filter === 'light') return n >= 1 && n <= 2;
+    if (filter === 'medium') return n === 3;
+    if (filter === 'heavy') return n >= 4 && n <= 5;
+    return true;
+  }
+
+  function elementMatches(element) {
+    const q = state.query.trim().toLowerCase();
+    const isRotation = element.dataset.type === 'rotation';
+    const matchesCategory = state.category === 'all' || element.dataset.category === state.category;
+    const matchesLevel = state.level === 'all' || element.dataset.level === state.level;
+    const matchesIntensity = isRotation ? state.intensity === 'all' : intensityMatches(element.dataset.intensity, state.intensity);
+    const matchesQuery = !q || element.dataset.search.includes(q);
+    const matchesRead = !state.unreadOnly || !readSet.has(element.dataset.readId);
+
+    if (isRotation && state.category !== 'all') return false;
+    return matchesCategory && matchesLevel && matchesIntensity && matchesQuery && matchesRead;
+  }
+
+  function updateMonthLabels() {
+    $$('.books-grid').forEach(grid => {
+      $$('.month-label', grid).forEach(label => {
+        let el = label.nextElementSibling;
+        let hasVisibleBook = false;
+        while (el && !el.classList.contains('month-label')) {
+          if (el.classList.contains('book-card') && !el.hidden) {
+            hasVisibleBook = true;
+            break;
+          }
+          el = el.nextElementSibling;
+        }
+        label.hidden = !hasVisibleBook;
+      });
+    });
+  }
+
+  function updateLevelVisibility() {
+    $$('.level-block').forEach(block => {
+      const visibleItems = $$('.book-card, .rotation-card', block).filter(item => !item.hidden);
+      block.hidden = visibleItems.length === 0;
+    });
+  }
+
+  function updateSupplements() {
+    $$('.supp-note').forEach(note => {
+      note.classList.toggle('is-hidden', state.supplements === 'hide');
+    });
+  }
+
+  function updateCategoryUI() {
+    $$('.filter-chip').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filterCategory === state.category);
+    });
+    $$('.legend-item').forEach(item => {
+      item.classList.toggle('active', item.dataset.legendCategory === state.category);
+    });
+    activeCategoryLabel.textContent = categoryNames[state.category] || state.category;
+  }
+
+  function updateCounts() {
+    const visibleBooks = $$('.book-card').filter(card => !card.hidden);
+    const visibleRotations = $$('.rotation-card').filter(card => !card.hidden);
+    const allReadable = $$('.book-card, .rotation-card');
+    const readVisible = allReadable.filter(item => readSet.has(item.dataset.readId)).length;
+
+    visiblePrimaryCount.textContent = visibleBooks.length;
+    visibleRotationCount.textContent = visibleRotations.length;
+    readCount.textContent = `${readVisible} of ${allReadable.length}`;
+    emptyState.classList.toggle('show', visibleBooks.length + visibleRotations.length === 0);
+  }
+
+  function applyFilters() {
+    state.level = levelFilter.value;
+    state.intensity = intensityFilter.value;
+    state.query = searchInput.value;
+    state.unreadOnly = unreadOnly.checked;
+    state.compact = compactView.checked;
+    state.supplements = supplementFilter.value;
+
+    document.body.classList.toggle('compact-view', state.compact);
+    updateCategoryUI();
+    updateSupplements();
+
+    $$('.book-card, .rotation-card').forEach(item => {
+      item.hidden = !elementMatches(item);
+      updateReadButton(item);
+    });
+
+    updateMonthLabels();
+    updateLevelVisibility();
+    updateCounts();
+  }
+
+  function setCategory(category) {
+    state.category = category;
+    applyFilters();
+  }
+
+  function resetFilters() {
+    state.category = 'all';
+    searchInput.value = '';
+    levelFilter.value = 'all';
+    intensityFilter.value = 'all';
+    supplementFilter.value = 'hide';
+    unreadOnly.checked = false;
+    compactView.checked = false;
+    applyFilters();
+  }
+
+  function copyVisibleList() {
+    const visible = $$('.book-card, .rotation-card').filter(item => !item.hidden);
+    const lines = visible.map(item => {
+      const prefix = item.dataset.type === 'rotation' ? 'Rotation' : `Level ${item.dataset.level}`;
+      const status = readSet.has(item.dataset.readId) ? 'Read' : 'Unread';
+      const category = categoryNames[item.dataset.category] || 'Professional rotation';
+      return `- ${prefix}: ${item.dataset.title} — ${item.dataset.author} [${category}; ${status}]`;
+    });
+    const text = lines.join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(showCopyToast).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.style.position = 'fixed';
+    area.style.left = '-9999px';
+    document.body.appendChild(area);
+    area.focus();
+    area.select();
+    document.execCommand('copy');
+    area.remove();
+    showCopyToast();
+  }
+
+  function showCopyToast() {
+    copyToast.classList.add('show');
+    setTimeout(() => copyToast.classList.remove('show'), 1300);
+  }
+
+  function nextUnread() {
+    const target = $$('.book-card, .rotation-card').find(item => !item.hidden && !readSet.has(item.dataset.readId));
+    if (target) {
+      const block = target.closest('.level-block');
+      if (block && block.classList.contains('collapsed')) {
+        block.classList.remove('collapsed');
+        const btn = $('.level-toggle-btn', block);
+        if (btn) btn.textContent = 'Collapse';
+      }
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      target.animate(
+        [
+          { boxShadow: '0 0 0 0 rgba(201,168,76,0)' },
+          { boxShadow: '0 0 0 4px rgba(201,168,76,0.25)' },
+          { boxShadow: '0 0 0 0 rgba(201,168,76,0)' }
+        ],
+        { duration: 1100, easing: 'ease-out' }
+      );
+    }
+  }
+
+  function bindEvents() {
+    $$('.filter-chip').forEach(btn => {
+      btn.addEventListener('click', () => setCategory(btn.dataset.filterCategory));
+    });
+
+    [searchInput, levelFilter, intensityFilter, supplementFilter, unreadOnly, compactView].forEach(control => {
+      control.addEventListener('input', applyFilters);
+      control.addEventListener('change', applyFilters);
+    });
+
+    document.addEventListener('click', event => {
+      const button = event.target.closest('.read-toggle');
+      if (!button) return;
+      const id = button.dataset.readTarget;
+      if (readSet.has(id)) readSet.delete(id);
+      else readSet.add(id);
+      saveReadSet();
+      applyFilters();
+    });
+
+    $('#expandAllBtn').addEventListener('click', () => {
+      $$('.level-block').forEach(block => {
+        block.classList.remove('collapsed');
+        const btn = $('.level-toggle-btn', block);
+        if (btn) btn.textContent = 'Collapse';
+      });
+    });
+
+    $('#collapseAllBtn').addEventListener('click', () => {
+      $$('.level-block').forEach(block => {
+        if (!block.hidden) {
+          block.classList.add('collapsed');
+          const btn = $('.level-toggle-btn', block);
+          if (btn) btn.textContent = 'Expand';
+        }
+      });
+    });
+
+    $('#copyVisibleBtn').addEventListener('click', copyVisibleList);
+    $('#resetFiltersBtn').addEventListener('click', resetFilters);
+    $('#nextUnreadBtn').addEventListener('click', nextUnread);
+  }
+
+  prepareBookCards();
+  decorateLevels();
+  decorateLegend();
+  bindEvents();
+  applyFilters();
+})();
+</script>
+
+</body>
+</html>
